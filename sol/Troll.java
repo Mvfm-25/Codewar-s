@@ -1,9 +1,10 @@
-// Solucionado dia 29/10/2025
+// Solucionado dia 29/10/2025 || Alterado Última vez : 29/10/2025
 // Segue o link para o problema : https://www.codewars.com/kata/52fba66badcd10859f00097e/java
 
 public class Troll {
     public static String disemvowel(String str) {
-        return str.replaceAll("[aAeEiIoOuU]", "");
+        // Adcionado expressão regular para ignorar Maiúsculas ou Minúsculas.
+        return str.replaceAll("(?i)[aeiou]", "");
     }
 
     public static void main(String[] args) {
