@@ -1,3 +1,6 @@
+// Solucionado Dia : 03/11/2025 || Alterado Última vez : 03/11/2025
+// Segue o link para o problema : https://www.codewars.com/kata/5ca24526b534ce0018a137b5/train/java
+
 import java.util.*;
 
 public class OldSchoolPhoneReverse {
