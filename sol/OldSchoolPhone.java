@@ -5,31 +5,36 @@ import java.util.*;
 
 public class OldSchoolPhone {
 
-    public static void sendMessage(String message){
-        Map<String, String> hash = new HashMap<>();
-        // 1
-        hash.put("1", "."); hash.put("11", ","); hash.put("111", "?"); hash.put("1111", "!");
-        // 2
-        hash.put("2", "a"); hash.put("22", "b"); hash.put("222", "c");
-        // 3
-        hash.put("3", "d"); hash.put("33", "e"); hash.put("333", "f");
-        // 4 
-        hash.put("4", "g"); hash.put("44", "h"); hash.put("444", "i");
-        // 5
-        hash.put("5", "j"); hash.put("55", "k"); hash.put("555", "l");
-        // 6
-        hash.put("6", "m"); hash.put("66", "n"); hash.put("666", "o");
-        // 7
-        hash.put("7", "p"); hash.put("77", "q"); hash.put("777", "r"); hash.put("7777", "s");
-        // 8
-        hash.put("8", "t"); hash.put("88", "u"); hash.put("888", "v");
-        // 9
-        hash.put("9", "w"); hash.put("99", "x"); hash.put("999", "y"); hash.put("9999", "z");
-        // *
-        hash.put("*", "'"); hash.put("**", "-"); hash.put("***", "+"); hash.put("****", "=");
-        // 0
-        hash.put("0", " ");
+    private static final Map<String, String> MAP = createMap();
 
+    private static Map<String, String> createMap() {
+        Map<String, String> m = new HashMap<>();
+        // 1
+        m.put("1", "."); m.put("11", ","); m.put("111", "?"); m.put("1111", "!");
+        // 2
+        m.put("2", "a"); m.put("22", "b"); m.put("222", "c");
+        // 3
+        m.put("3", "d"); m.put("33", "e"); m.put("333", "f");
+        // 4
+        m.put("4", "g"); m.put("44", "h"); m.put("444", "i");
+        // 5
+        m.put("5", "j"); m.put("55", "k"); m.put("555", "l");
+        // 6
+        m.put("6", "m"); m.put("66", "n"); m.put("666", "o");
+        // 7
+        m.put("7", "p"); m.put("77", "q"); m.put("777", "r"); m.put("7777", "s");
+        // 8
+        m.put("8", "t"); m.put("88", "u"); m.put("888", "v");
+        // 9
+        m.put("9", "w"); m.put("99", "x"); m.put("999", "y"); m.put("9999", "z");
+        // *
+        m.put("*", "'"); m.put("**", "-"); m.put("***", "+"); m.put("****", "=");
+        // 0
+        m.put("0", " ");
+        return Collections.unmodifiableMap(m);
+    }
+
+    public static void sendMessage(String message){
 
         StringBuilder builder = new StringBuilder(); 
         StringBuilder finished = new StringBuilder();
@@ -41,47 +46,45 @@ public class OldSchoolPhone {
 
             // Ignore spaces.
             if(Character.isWhitespace(c)){
-                finished.append(hash.get(builder.toString()));
-                builder.setLength(0);
+                flusher(builder, finished, upper);
                 continue;
             }
 
             // Lower to upper, upper to lower.
             if(c == '#'){
+                flusher(builder, finished, upper);
                 upper = !upper;
+                continue;
             }
 
             // Numbers as literal
             if(c == '-'){
-                finished.append(builder.toString());
-                builder.setLength(0);
+                if(!builder.isEmpty()){
+                    finished.append(builder.toString());
+                    builder.setLength(0);
+                }
                 continue;
             }
 
             if(!builder.isEmpty() && c == builder.charAt(builder.length() -1 )){
                 builder.append(c);
             } else {
-                if(!builder.isEmpty()){
-                    if(upper){
-                        finished.append(hash.get(builder.toString()).toUpperCase());
-                        builder.setLength(0);                        
-                    } else {
-                        finished.append(hash.get(builder.toString()));
-                        builder.setLength(0);
-                    }
-                }
-
+                flusher(builder, finished, upper);
                 builder.append(c);
             }
         }
 
-        if(!builder.isEmpty()){
-            finished.append(hash.get(builder.toString()));
-            builder.setLength(0);
-        }
-
+        flusher(builder, finished, upper);
         System.out.println(finished.toString());
         
+    }
+
+    private static void flusher(StringBuilder builder, StringBuilder finished, boolean upper){
+        String mapped = MAP.get(builder.toString());
+        if(builder.length() == 0){ return; }
+
+        finished.append(upper ? mapped.toUpperCase() : mapped );
+        builder.setLength(0);
     }
 
     public static void main(String[] args) {
@@ -91,6 +94,8 @@ public class OldSchoolPhone {
         sendMessage("666 6633089666084477733 33");
         //1984
         sendMessage("1-9-8-4-");
+        // Dude
+        sendMessage("3883 33");
         // A-z
         sendMessage("#2**#9999");
     }
