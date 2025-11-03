@@ -1,4 +1,4 @@
-// Solucionado Dia : XX/XX/XXXX || Alterado Última vez : XX/XX/XXXX
+// Solucionado Dia : 03/11/2025 || Alterado Última vez : 03/11/2025
 // Segue o link para o problema : https://www.codewars.com/kata/5ca24526b534ce0018a137b5/train/java
 
 import java.util.*;
@@ -34,7 +34,7 @@ public class OldSchoolPhone {
         return Collections.unmodifiableMap(m);
     }
 
-    public static void sendMessage(String message){
+    public static String sendMessage(String message){
 
         StringBuilder builder = new StringBuilder(); 
         StringBuilder finished = new StringBuilder();
@@ -75,7 +75,7 @@ public class OldSchoolPhone {
         }
 
         flusher(builder, finished, upper);
-        System.out.println(finished.toString());
+        return finished.toString();
         
     }
 
@@ -89,15 +89,15 @@ public class OldSchoolPhone {
 
     public static void main(String[] args) {
         // hey
-        sendMessage("4433999");
+        System.out.println(sendMessage("4433999"));;
         // one two three
-        sendMessage("666 6633089666084477733 33");
+        System.out.println(sendMessage("666 6633089666084477733 33"));;
         //1984
-        sendMessage("1-9-8-4-");
+        System.out.println(sendMessage("1-9-8-4-"));;
         // Dude
-        sendMessage("3883 33");
+        System.out.println(sendMessage("3883 33"));;
         // A-z
-        sendMessage("#2**#9999");
+        System.out.println(sendMessage("#2**#9999"));;
     }
     
 }
