@@ -51,6 +51,7 @@ public class OldSchoolPhone {
                 upper = !upper;
             }
 
+            // Numbers as literal
             if(c == '-'){
                 finished.append(builder.toString());
                 builder.setLength(0);
